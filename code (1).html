@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Topraktan Çiçek Çıkıyor - Sana Efsun</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap');
+
+  body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(ellipse at bottom, #0b001a 0%, #13001f 80%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-family: 'Quicksand', sans-serif;
+    overflow: hidden;
+    color: #fff;
+  }
+  .ground {
+    position: relative;
+    width: 320px;
+    height: 160px;
+    background: linear-gradient(180deg, #270015 0%, #4d002a 100%);
+    border-top-left-radius: 160px;
+    border-top-right-radius: 160px;
+    box-shadow:
+      inset 0 -15px 20px #8b003e,
+      0 0 40px #ff08ffdd,
+      0 0 50px #ff08ffee;
+    filter: drop-shadow(0 0 15px #ff33ffbb);
+  }
+  .stem {
+    position: absolute;
+    bottom: 160px;
+    left: 50%;
+    width: 12px;
+    height: 0;
+    background: linear-gradient(180deg, #3cff48, #006600);
+    border-radius: 6px;
+    transform-origin: bottom center;
+    box-shadow:
+      0 0 10px #3cff48,
+      0 0 20px #00ff00dd,
+      0 0 30px #18ff00ee;
+    animation-fill-mode: forwards;
+    opacity: 0;
+  }
+  .flower {
+    position: absolute;
+    bottom: 280px; /* burası sap yüksekliği 160 + 120 */
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    margin-left: -35px;
+    opacity: 0;
+    filter: drop-shadow(0 0 25px #ff3dff);
+    animation-fill-mode: forwards;
+  }
+  /* Neon çiçek yaprakları */
+  .petal {
+    position: absolute;
+    width: 24px;
+    height: 38px;
+    background: #ff33ff;
+    border-radius: 50% 50% 50% 50% / 70% 70% 40% 40%;
+    box-shadow: 0 0 30px #ff33ff, 0 0 45px #ff33ffbb;
+    transform-origin: bottom center;
+    opacity: 0.92;
+  }
+  .petal1 {
+    top: 5px;
+    left: 50%;
+    margin-left: -12px;
+    transform: rotate(0deg);
+  }
+  .petal2 {
+    top: 11px;
+    left: 13px;
+    transform: rotate(-45deg);
+  }
+  .petal3 {
+    top: 11px;
+    right: 13px;
+    transform: rotate(45deg);
+  }
+  .petal4 {
+    top: 26px;
+    left: 10px;
+    transform: rotate(-75deg);
+  }
+  .petal5 {
+    top: 26px;
+    right: 10px;
+    transform: rotate(75deg);
+  }
+  .petal6 {
+    top: 20px;
+    left: 28px;
+    transform: rotate(-20deg);
+  }
+  .petal7 {
+    top: 20px;
+    right: 28px;
+    transform: rotate(20deg);
+  }
+  .center {
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    margin-left: -10px;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #ff00ff, #840084);
+    border-radius: 50%;
+    box-shadow:
+      0 0 25px #ff00ffbb,
+      0 0 40px #ff33ffcc;
+  }
+  /* Efsun yazısı */
+  .efsun-text {
+    position: absolute;
+    bottom: 360px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: #ff00ff;
+    text-shadow:
+       0 0 10px #ff00ff,
+       0 0 20px #ff00ff,
+       0 0 30px #ff00ff,
+       0 0 40px #ff00ffbb,
+       0 0 50px #ff00ffcc;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    user-select: none;
+  }
+  /* Animasyonlar */
+  @keyframes growStem {
+    0% {
+      height: 0;
+      opacity: 0;
+      transform: scaleY(0.05);
+    }
+    100% {
+      height: 120px;
+      opacity: 1;
+      transform: scaleY(1);
+    }
+  }
+  @keyframes bloomFlower {
+    0% {
+      opacity: 0;
+      transform: scale(0.2);
+      filter: drop-shadow(0 0 0 #ff33ff);
+    }
+    70% {
+      opacity: 1;
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 35px #ff33ff);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      filter: drop-shadow(0 0 25px #ff33ff);
+    }
+  }
+  @keyframes glowText {
+    0% {
+      opacity: 0;
+      text-shadow: none;
+      transform: translateX(-50%) translateY(10px);
+    }
+    50% {
+      opacity: 1;
+      text-shadow:
+       0 0 15px #ff00ff,
+       0 0 30px #ff00ffcc,
+       0 0 45px #ff00ffcc;
+      transform: translateX(-50%) translateY(0);
+    }
+    100% {
+      opacity: 1;
+      text-shadow:
+       0 0 20px #ff00ff,
+       0 0 40px #ff00ffdd,
+       0 0 60px #ff00ffdd;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="ground"></div>
+  <div class="stem" id="stem"></div>
+  <div class="flower" id="flower">
+    <div class="petal petal1"></div>
+    <div class="petal petal2"></div>
+    <div class="petal petal3"></div>
+    <div class="petal petal4"></div>
+    <div class="petal petal5"></div>
+    <div class="petal petal6"></div>
+    <div class="petal petal7"></div>
+    <div class="center"></div>
+  </div>
+  <div class="efsun-text" id="efsunText">sana efsun</div>
+
+  <script>
+    const stem = document.getElementById('stem');
+    const flower = document.getElementById('flower');
+    const efsunText = document.getElementById('efsunText');
+
+    // Başlangıçta opacity sıfır ve sap yüksekliği 0
+    stem.style.opacity = '0';
+    stem.style.height = '0px';
+    flower.style.opacity = '0';
+    efsunText.style.opacity = '0';
+
+    function growStem() {
+      return new Promise(resolve => {
+        stem.style.animation = 'growStem 3.2s forwards cubic-bezier(0.4, 0, 0.2, 1)';
+        stem.style.opacity = '1';
+        setTimeout(resolve, 3200);
+      });
+    }
+    function bloomFlower() {
+      return new Promise(resolve => {
+        flower.style.animation = 'bloomFlower 2.5s forwards cubic-bezier(0.4, 0, 0.2, 1)';
+        flower.style.opacity = '1';
+        setTimeout(resolve, 2500);
+      });
+    }
+    function showEfsun() {
+      return new Promise(resolve => {
+        efsunText.style.animation = 'glowText 3s forwards ease-in-out';
+        efsunText.style.opacity = '1';
+        setTimeout(resolve, 3000);
+      });
+    }
+
+    async function animateAll() {
+      await growStem();
+      await bloomFlower();
+      await showEfsun();
+    }
+
+    animateAll();
+  </script>
+</body>
+</html>
+
